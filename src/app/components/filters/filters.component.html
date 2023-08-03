@@ -1,1 +1,46 @@
 <p>filters works!</p>
+<div *ngIf="categoryOptions; else errorBlock">
+  <mat-form-field>
+    <mat-select
+      placeholder="Select a category"
+      id="categorySelect"
+      #categorySelect
+      required
+    >
+      <!-- <option default value="undefined">Select a category</option> -->
+      <mat-option
+        *ngFor="let category of categoryOptions"
+        [value]="category.id"
+      >
+        {{ category.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select
+      placeholder="Select difficulty"
+      id="difficultySelect"
+      #difficultySelect
+      required
+    >
+      <mat-option
+        *ngFor="let difficulty of difficultyOptions"
+        [value]="difficulty.value"
+      >
+        {{ difficulty.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button
+    mat-button
+    color="primary"
+    type="submit"
+    id="createBtn"
+    (click)="submit(categorySelect.value, difficultySelect.value)"
+    [disabled]="!categorySelect.value || !difficultySelect.value"
+  >
+    Create
+  </button>
+</div>
+<ng-template #errorBlock> <mat-spinner></mat-spinner> </ng-template>
