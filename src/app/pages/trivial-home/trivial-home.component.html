@@ -1,3 +1,6 @@
 <p>trivial-home works!</p>
-<app-filters></app-filters>
-<app-q-and-a></app-q-and-a>
+<app-filters (selectedOptions)="getSelectedOptions($event)"></app-filters>
+<app-q-and-a-form
+  [selectedFilterOptions]="selectedOptions"
+  *ngIf="selectedOptions"
+></app-q-and-a-form>

@@ -1,0 +1,7 @@
+<ng-container *ngIf="trivialQuestions">
+  <app-q-and-a
+    *ngFor="let question of trivialQuestions"
+    [questionData]="question"
+  ></app-q-and-a>
+</ng-container>
+<!--boton-->

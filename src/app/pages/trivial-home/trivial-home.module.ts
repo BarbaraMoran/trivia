@@ -7,17 +7,15 @@ import { FiltersComponent } from 'src/app/components/filters/filters.component';
 import { QAndAComponent } from 'src/app/components/q-and-a/q-and-a.component';
 import { FiltersModule } from 'src/app/components/filters/filters.module';
 import { QAndAModule } from 'src/app/components/q-and-a/q-and-a.module';
-
+import { QAndAFormModule } from 'src/app/components/q-and-a-form/q-and-a-form.module';
 
 @NgModule({
-  declarations: [
-    TrivialHomeComponent
-  ],
+  declarations: [TrivialHomeComponent],
   imports: [
     CommonModule,
     TrivialHomeRoutingModule,
     FiltersModule,
-    QAndAModule
-  ]
+    QAndAFormModule,
+  ],
 })
-export class TrivialHomeModule { }
+export class TrivialHomeModule {}
