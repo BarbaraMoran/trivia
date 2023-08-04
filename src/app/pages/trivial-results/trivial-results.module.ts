@@ -1,20 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { TrivialResultsRoutingModule } from './trivial-results-routing.module';
 import { TrivialResultsComponent } from './trivial-results.component';
-import { QAndAComponent } from 'src/app/components/q-and-a/q-and-a.component';
-import { QAndAModule } from 'src/app/components/q-and-a/q-and-a.module';
-
+import { QAndAFormModule } from 'src/app/components/q-and-a-form/q-and-a-form.module';
 
 @NgModule({
-  declarations: [
-    TrivialResultsComponent
-  ],
-  imports: [
-    CommonModule,
-    TrivialResultsRoutingModule,
-    QAndAModule
-  ]
+  declarations: [TrivialResultsComponent],
+  imports: [CommonModule, TrivialResultsRoutingModule, QAndAFormModule],
 })
-export class TrivialResultsModule { }
+export class TrivialResultsModule {}

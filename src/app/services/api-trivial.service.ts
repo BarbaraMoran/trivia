@@ -41,8 +41,10 @@ export class ApiTrivialService {
       .get<ITriviaQuestions>(`${this.URL_BASE}${questionsParams}`)
       .pipe(
         map((data) => {
-          data.results.forEach((item: IQuestion) => {
+          let i = 1;
+          data.results.forEach((item) => {
             item.allAnswers = [...item.incorrect_answers, item.correct_answer];
+            item.id = i++;
           });
 
           return data.results;

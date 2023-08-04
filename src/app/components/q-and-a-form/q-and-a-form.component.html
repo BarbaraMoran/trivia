@@ -1,7 +1,19 @@
 <ng-container *ngIf="trivialQuestions">
   <app-q-and-a
+    (addAnswerInfo)="getSelectedAnswers($event)"
     *ngFor="let question of trivialQuestions"
     [questionData]="question"
+    [disabled]="resultsMode && !gameMode"
   ></app-q-and-a>
+  <button
+    class="submit-btn"
+    *ngIf="showButton && gameMode && !resultsMode"
+    mat-raised-button
+    color="primary"
+    type="submit"
+    (click)="submit()"
+  >
+    Submit
+  </button>
 </ng-container>
 <!--boton-->

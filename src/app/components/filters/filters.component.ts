@@ -34,9 +34,6 @@ export class FiltersComponent implements OnInit, OnDestroy {
 
   submit(category: string, difficulty: string): void {
     this.selectedOptions.emit({ category, difficulty });
-    console.log(category);
-    console.log(typeof category);
-    console.log(difficulty);
   }
 
   ngOnDestroy(): void {

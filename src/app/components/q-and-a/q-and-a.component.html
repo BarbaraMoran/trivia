@@ -1,6 +1,12 @@
 <div *ngIf="questionData" class="question">
   <h3>{{ questionData.question }}</h3>
-  <mat-button-toggle-group name="questionData" aria-label="Favorite Color">
+  <mat-button-toggle-group
+    name="questionData"
+    aria-label="Favorite Color"
+    [(ngModel)]="selectedAnswer"
+    (change)="submitAnswer()"
+    [disabled]="disabled"
+  >
     <mat-button-toggle
       *ngFor="let answer of questionData?.allAnswers"
       [value]="answer"
