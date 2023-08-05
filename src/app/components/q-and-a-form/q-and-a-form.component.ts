@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { QUESTIONS_NUMBER } from 'src/app/constants/constants';
 import { ISelectedAnswer } from 'src/app/interfaces/selected-answer.interface';
-import { ISelectedFilterOptions } from 'src/app/interfaces/selected-filter-options.interface';
 import { IQuestion } from 'src/app/interfaces/trivia-api-response.interface';
 import { TrivialService } from 'src/app/services/trivial.service';
 
@@ -10,14 +10,23 @@ import { TrivialService } from 'src/app/services/trivial.service';
   templateUrl: './q-and-a-form.component.html',
   styleUrls: ['./q-and-a-form.component.scss'],
 })
-export class QAndAFormComponent {
-  @Input() trivialQuestions!: IQuestion[];
+export class QAndAFormComponent implements OnInit {
+  trivialQuestions!: IQuestion[];
   @Input() resultsMode: boolean = false;
   @Input() gameMode: boolean = false;
   selectedAnswers: ISelectedAnswer[] = [];
   showButton: boolean = false;
+  totalScoreLiteral!: string;
 
-  constructor(private trivialService: TrivialService, private router: Router) {}
+  constructor(private trivialService: TrivialService, private router: Router) {
+    this.trivialQuestions = this.trivialService.questions;
+  }
+
+  ngOnInit(): void {
+    if (this.resultsMode) {
+      this.totalScoreLiteral = this.getTotalScoreLiteral();
+    }
+  }
 
   getSelectedAnswers(selectedAnswerInfo: ISelectedAnswer): void {
     this.selectedAnswers = this.selectedAnswers.filter(
@@ -40,5 +49,15 @@ export class QAndAFormComponent {
     console.log(this.selectedAnswers);
     this.trivialService.submittedAnswers = this.selectedAnswers;
     this.router.navigate(['/trivial-results']);
+  }
+
+  //Results Mode
+  getTotalScoreLiteral(): string {
+    const correctAnswers = this.trivialService.submittedAnswers.filter(
+      (item) => item.selectedAnswer === item.correctAnswer
+    );
+    console.log(correctAnswers);
+
+    return `You scored ${correctAnswers.length} out of ${QUESTIONS_NUMBER}`;
   }
 }

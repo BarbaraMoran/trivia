@@ -1,7 +1,6 @@
 <h1>QUIZ MAKER</h1>
 <app-filters (selectedOptions)="getSelectedOptions($event)"></app-filters>
 <app-q-and-a-form
-  [trivialQuestions]="trivialQuestions"
   [gameMode]="gameMode"
   *ngIf="trivialQuestions"
 ></app-q-and-a-form>

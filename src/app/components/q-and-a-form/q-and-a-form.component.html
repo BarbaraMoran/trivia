@@ -5,6 +5,7 @@
     [questionData]="question"
     [disabled]="resultsMode && !gameMode"
   ></app-q-and-a>
+
   <button
     class="submit-btn"
     *ngIf="showButton && gameMode && !resultsMode"
@@ -15,5 +16,9 @@
   >
     Submit
   </button>
-</ng-container>
+
+  <div *ngIf="resultsMode && !gameMode" class="result-text">
+    <p>{{totalScoreLiteral}}</p>
+  </div>
+
 <!--boton-->
