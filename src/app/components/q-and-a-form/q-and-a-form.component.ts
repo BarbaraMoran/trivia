@@ -15,6 +15,7 @@ export class QAndAFormComponent implements OnInit {
   @Input() resultsMode: boolean = false;
   @Input() gameMode: boolean = false;
   selectedAnswers: ISelectedAnswer[] = [];
+  submittedAnswers: ISelectedAnswer[] = [];
   showButton: boolean = false;
   totalScoreLiteral!: string;
 
@@ -24,6 +25,7 @@ export class QAndAFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.resultsMode) {
+      this.submittedAnswers = this.trivialService.submittedAnswers;
       this.totalScoreLiteral = this.getTotalScoreLiteral();
     }
   }
@@ -42,20 +44,26 @@ export class QAndAFormComponent implements OnInit {
   }
 
   checkIfFormIsComplete(): boolean {
-    return this.selectedAnswers.length === 5 ? true : false;
+    return this.selectedAnswers.length === QUESTIONS_NUMBER ? true : false;
   }
 
   submit(): void {
+    this.sortSubmittedAnswers();
     console.log(this.selectedAnswers);
     this.trivialService.submittedAnswers = this.selectedAnswers;
     this.router.navigate(['/trivial-results']);
   }
 
+  sortSubmittedAnswers(): void {
+    this.selectedAnswers.sort((a, b) => a.id - b.id);
+  }
+
   //Results Mode
   getTotalScoreLiteral(): string {
-    const correctAnswers = this.trivialService.submittedAnswers.filter(
+    const correctAnswers = this.submittedAnswers.filter(
       (item) => item.selectedAnswer === item.correctAnswer
     );
+
     console.log(correctAnswers);
 
     return `You scored ${correctAnswers.length} out of ${QUESTIONS_NUMBER}`;

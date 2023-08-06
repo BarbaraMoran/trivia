@@ -3,7 +3,7 @@
     (addAnswerInfo)="getSelectedAnswers($event)"
     *ngFor="let question of trivialQuestions"
     [questionData]="question"
-    [disabled]="resultsMode && !gameMode"
+    [resultsMode]="resultsMode"
   ></app-q-and-a>
 
   <button
@@ -18,7 +18,8 @@
   </button>
 
   <div *ngIf="resultsMode && !gameMode" class="result-text">
-    <p>{{totalScoreLiteral}}</p>
+    <p>{{ totalScoreLiteral }}</p>
   </div>
 
-<!--boton-->
+  <!--boton-->
+</ng-container>

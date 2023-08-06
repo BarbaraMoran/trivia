@@ -6,7 +6,7 @@ import {
   ITriviaCategory,
   ITriviaQuestions,
 } from '../interfaces/trivia-api-response.interface';
-import { Observable, catchError, map, tap } from 'rxjs';
+import { Observable, catchError, map } from 'rxjs';
 import { ISelectedFilterOptions } from '../interfaces/selected-filter-options.interface';
 
 @Injectable({
@@ -43,7 +43,10 @@ export class ApiTrivialService {
         map((data) => {
           let i = 1;
           data.results.forEach((item) => {
-            item.allAnswers = [...item.incorrect_answers, item.correct_answer];
+            item.allAnswers = this.shuffleAnswers([
+              ...item.incorrect_answers,
+              item.correct_answer,
+            ]);
             item.id = i++;
           });
 
@@ -53,5 +56,14 @@ export class ApiTrivialService {
           throw Error(err);
         })
       );
+  }
+
+  shuffleAnswers(array: string[]): string[] {
+    console.log(array);
+    array.sort(function () {
+      return Math.random() - 0.5;
+    });
+
+    return array;
   }
 }

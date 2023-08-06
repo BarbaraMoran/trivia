@@ -1,16 +1,21 @@
 <div *ngIf="questionData" class="question">
-  <h3>{{ questionData.question }}</h3>
+  <h3>{{ questionData.question | quotationMarks }}</h3>
   <mat-button-toggle-group
     name="questionData"
     aria-label="Favorite Color"
     [(ngModel)]="selectedAnswer"
     (change)="submitAnswer()"
-    [disabled]="disabled"
+    [disabled]="resultsMode"
   >
     <mat-button-toggle
-      *ngFor="let answer of questionData?.allAnswers"
-      [value]="answer"
-      >{{ answer }}</mat-button-toggle
+      *ngFor="let answerOption of questionData?.allAnswers"
+      [value]="answerOption"
+      [ngStyle]="{
+        'background-color': resultsMode ? getBtnColor(answerOption) : undefined,
+        color: 'black'
+      }"
     >
+      {{ answerOption | quotationMarks }}
+    </mat-button-toggle>
   </mat-button-toggle-group>
 </div>

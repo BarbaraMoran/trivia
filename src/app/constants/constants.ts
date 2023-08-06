@@ -14,3 +14,7 @@ export const DIFFICULTY_OPTIONS = [
 ];
 
 export const QUESTIONS_NUMBER = 5;
+export const SINGLE_QUOTE_KEY = '&#039;';
+export const SINGLE_QUOTE = "'";
+export const DOUBLE_QUOTE_KEY = '&quot;';
+export const DOUBLE_QUOTE = '"';

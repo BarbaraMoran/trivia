@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ISelectedAnswer } from 'src/app/interfaces/selected-answer.interface';
 import { IQuestion } from 'src/app/interfaces/trivia-api-response.interface';
+import { TrivialService } from 'src/app/services/trivial.service';
 
 @Component({
   selector: 'app-q-and-a',
@@ -9,10 +10,21 @@ import { IQuestion } from 'src/app/interfaces/trivia-api-response.interface';
 })
 export class QAndAComponent implements OnInit {
   @Input() questionData!: IQuestion;
-  @Input() displayResultsMode!: boolean;
-  @Input() disabled: boolean = false;
+  @Input() resultsMode: boolean = false;
   @Output() addAnswerInfo = new EventEmitter<ISelectedAnswer>();
   selectedAnswer!: string;
+  submitedAnswer!: ISelectedAnswer;
+  green: string = 'green';
+  red: string = 'red';
+
+  constructor(private trivialService: TrivialService) {}
+
+  ngOnInit(): void {
+    if (this.resultsMode) {
+      this.submitedAnswer =
+        this.trivialService.submittedAnswers[this.questionData.id - 1];
+    }
+  }
 
   submitAnswer(): void {
     const selectedAnswerInfo: ISelectedAnswer = {
@@ -24,5 +36,15 @@ export class QAndAComponent implements OnInit {
     this.addAnswerInfo.emit(selectedAnswerInfo);
   }
 
-  ngOnInit(): void {}
+  getBtnColor(answerOption: string): string | undefined {
+    if (answerOption === this.questionData.correct_answer) {
+      console.log('green');
+      return 'green';
+    } else if (answerOption === this.submitedAnswer.selectedAnswer) {
+      console.log('red');
+      return 'red';
+    }
+    console.log(undefined);
+    return undefined;
+  }
 }
