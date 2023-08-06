@@ -22,7 +22,7 @@ export class QAndAComponent implements OnInit {
   ngOnInit(): void {
     if (this.resultsMode) {
       this.submitedAnswer =
-        this.trivialService.submittedAnswers[this.questionData.id - 1];
+        this.trivialService.submittedAnswers[this.questionData.id];
     }
   }
 
@@ -38,13 +38,10 @@ export class QAndAComponent implements OnInit {
 
   getBtnColor(answerOption: string): string | undefined {
     if (answerOption === this.questionData.correct_answer) {
-      console.log('green');
       return 'green';
     } else if (answerOption === this.submitedAnswer.selectedAnswer) {
-      console.log('red');
       return 'red';
     }
-    console.log(undefined);
     return undefined;
   }
 }

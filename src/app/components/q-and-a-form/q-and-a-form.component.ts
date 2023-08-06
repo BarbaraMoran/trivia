@@ -11,23 +11,27 @@ import { TrivialService } from 'src/app/services/trivial.service';
   styleUrls: ['./q-and-a-form.component.scss'],
 })
 export class QAndAFormComponent implements OnInit {
-  trivialQuestions!: IQuestion[];
   @Input() resultsMode: boolean = false;
   @Input() gameMode: boolean = false;
+  @Input() trivialQuestions!: IQuestion[];
   selectedAnswers: ISelectedAnswer[] = [];
   submittedAnswers: ISelectedAnswer[] = [];
   showButton: boolean = false;
   totalScoreLiteral!: string;
 
-  constructor(private trivialService: TrivialService, private router: Router) {
-    this.trivialQuestions = this.trivialService.questions;
-  }
+  constructor(private trivialService: TrivialService, private router: Router) {}
 
   ngOnInit(): void {
-    if (this.resultsMode) {
+    if (this.resultsMode && this.trivialService.submittedAnswers) {
       this.submittedAnswers = this.trivialService.submittedAnswers;
       this.totalScoreLiteral = this.getTotalScoreLiteral();
     }
+  }
+
+  ngOnChanges(): void {
+    this.showButton = false;
+    this.selectedAnswers = [];
+    console.log('onchanges');
   }
 
   getSelectedAnswers(selectedAnswerInfo: ISelectedAnswer): void {
@@ -48,15 +52,15 @@ export class QAndAFormComponent implements OnInit {
   }
 
   submit(): void {
-    this.sortSubmittedAnswers();
+    // this.sortSubmittedAnswers();
     console.log(this.selectedAnswers);
     this.trivialService.submittedAnswers = this.selectedAnswers;
     this.router.navigate(['/trivial-results']);
   }
 
-  sortSubmittedAnswers(): void {
-    this.selectedAnswers.sort((a, b) => a.id - b.id);
-  }
+  // sortSubmittedAnswers(): void {
+  //   this.selectedAnswers.sort((a, b) => a.id - b.id);
+  // }
 
   //Results Mode
   getTotalScoreLiteral(): string {

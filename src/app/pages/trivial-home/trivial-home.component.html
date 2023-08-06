@@ -2,5 +2,6 @@
 <app-filters (selectedOptions)="getSelectedOptions($event)"></app-filters>
 <app-q-and-a-form
   [gameMode]="gameMode"
+  [trivialQuestions]="trivialQuestions"
   *ngIf="trivialQuestions"
 ></app-q-and-a-form>

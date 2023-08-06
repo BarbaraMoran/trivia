@@ -41,7 +41,7 @@ export class ApiTrivialService {
       .get<ITriviaQuestions>(`${this.URL_BASE}${questionsParams}`)
       .pipe(
         map((data) => {
-          let i = 1;
+          let i = 0;
           data.results.forEach((item) => {
             item.allAnswers = this.shuffleAnswers([
               ...item.incorrect_answers,
@@ -59,7 +59,6 @@ export class ApiTrivialService {
   }
 
   shuffleAnswers(array: string[]): string[] {
-    console.log(array);
     array.sort(function () {
       return Math.random() - 0.5;
     });

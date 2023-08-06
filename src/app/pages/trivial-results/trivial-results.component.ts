@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { IQuestion } from 'src/app/interfaces/trivia-api-response.interface';
 import { TrivialService } from 'src/app/services/trivial.service';
 
 @Component({
@@ -9,8 +10,11 @@ import { TrivialService } from 'src/app/services/trivial.service';
 })
 export class TrivialResultsComponent {
   resultsMode: boolean = true;
+  trivialQuestions!: IQuestion[];
 
-  constructor(private trivialService: TrivialService, private router: Router) {}
+  constructor(private trivialService: TrivialService, private router: Router) {
+    this.trivialQuestions = this.trivialService.questions;
+  }
 
   navigateHome(): void {
     this.router.navigate(['/trivial-home']);

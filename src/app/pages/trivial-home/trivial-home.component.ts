@@ -30,13 +30,13 @@ export class TrivialHomeComponent implements OnDestroy {
     this.apiSubscription = this.apiTrivialService
       .getTrivialQuestionsData(this.selectedOptions)
       .subscribe((data) => {
+        console.log(data);
         this.trivialQuestions = data;
         this.trivialService.questions = data;
-        console.log(data);
       });
   }
 
   ngOnDestroy(): void {
-    this.apiSubscription.unsubscribe;
+    this.apiSubscription?.unsubscribe;
   }
 }

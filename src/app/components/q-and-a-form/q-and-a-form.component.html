@@ -17,7 +17,7 @@
     Submit
   </button>
 
-  <div *ngIf="resultsMode && !gameMode" class="result-text">
+  <div *ngIf="resultsMode && !gameMode && submittedAnswers" class="result-text">
     <p>{{ totalScoreLiteral }}</p>
   </div>
 
