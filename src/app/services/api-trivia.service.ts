@@ -8,16 +8,17 @@ import {
 } from '../interfaces/trivia-api-response.interface';
 import { Observable, catchError, map } from 'rxjs';
 import { ISelectedFilterOptions } from '../interfaces/selected-filter-options.interface';
+import { QUESTIONS_AMOUNT } from '../constants/questions-amount-constant';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ApiTrivialService {
+export class ApiTriviaService {
   private URL_BASE = 'https://opentdb.com/';
 
   constructor(private http: HttpClient) {}
 
-  getTrivialCategoriesData(): Observable<ITriviaCategory[]> {
+  getTriviaCategoriesData(): Observable<ITriviaCategory[]> {
     const CAT_PARAM = 'api_category.php';
 
     return this.http
@@ -30,12 +31,11 @@ export class ApiTrivialService {
       );
   }
 
-  getTrivialQuestionsData(
+  getTriviaQuestionsData(
     selectedParams: ISelectedFilterOptions
   ): Observable<IQuestion[]> {
-    const questionsAmmount = 5;
     const type = 'multiple';
-    const questionsParams = `api.php?amount=${questionsAmmount}&category=${selectedParams.category}&difficulty=${selectedParams.difficulty}&type=${type}`;
+    const questionsParams = `api.php?amount=${QUESTIONS_AMOUNT}&category=${selectedParams.category}&difficulty=${selectedParams.difficulty}&type=${type}`;
 
     return this.http
       .get<ITriviaQuestions>(`${this.URL_BASE}${questionsParams}`)

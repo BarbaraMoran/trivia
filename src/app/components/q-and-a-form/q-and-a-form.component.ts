@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { QUESTIONS_NUMBER } from 'src/app/constants/constants';
+import { QUESTIONS_AMOUNT } from 'src/app/constants/questions-amount-constant';
 import { ISelectedAnswer } from 'src/app/interfaces/selected-answer.interface';
 import { IQuestion } from 'src/app/interfaces/trivia-api-response.interface';
-import { TrivialService } from 'src/app/services/trivial.service';
+import { TriviaService } from 'src/app/services/trivia.service';
 
 @Component({
   selector: 'app-q-and-a-form',
@@ -12,18 +12,17 @@ import { TrivialService } from 'src/app/services/trivial.service';
 })
 export class QAndAFormComponent implements OnInit {
   @Input() resultsMode: boolean = false;
-  @Input() gameMode: boolean = false;
-  @Input() trivialQuestions!: IQuestion[];
+  @Input() triviaQuestions!: IQuestion[];
   selectedAnswers: ISelectedAnswer[] = [];
   submittedAnswers: ISelectedAnswer[] = [];
   showButton: boolean = false;
   totalScoreLiteral!: string;
 
-  constructor(private trivialService: TrivialService, private router: Router) {}
+  constructor(private triviaService: TriviaService, private router: Router) {}
 
   ngOnInit(): void {
-    if (this.resultsMode && this.trivialService.submittedAnswers) {
-      this.submittedAnswers = this.trivialService.submittedAnswers;
+    if (this.resultsMode && this.triviaService.submittedAnswers) {
+      this.submittedAnswers = this.triviaService.submittedAnswers;
       this.totalScoreLiteral = this.getTotalScoreLiteral();
     }
   }
@@ -48,19 +47,14 @@ export class QAndAFormComponent implements OnInit {
   }
 
   checkIfFormIsComplete(): boolean {
-    return this.selectedAnswers.length === QUESTIONS_NUMBER ? true : false;
+    return this.selectedAnswers.length === QUESTIONS_AMOUNT ? true : false;
   }
 
   submit(): void {
-    // this.sortSubmittedAnswers();
     console.log(this.selectedAnswers);
-    this.trivialService.submittedAnswers = this.selectedAnswers;
-    this.router.navigate(['/trivial-results']);
+    this.triviaService.submittedAnswers = this.selectedAnswers;
+    this.router.navigate(['/trivia-results']);
   }
-
-  // sortSubmittedAnswers(): void {
-  //   this.selectedAnswers.sort((a, b) => a.id - b.id);
-  // }
 
   //Results Mode
   getTotalScoreLiteral(): string {
@@ -70,6 +64,6 @@ export class QAndAFormComponent implements OnInit {
 
     console.log(correctAnswers);
 
-    return `You scored ${correctAnswers.length} out of ${QUESTIONS_NUMBER}`;
+    return `You scored ${correctAnswers.length} out of ${QUESTIONS_AMOUNT}`;
   }
 }

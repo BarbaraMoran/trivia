@@ -2,7 +2,6 @@
   <h3>{{ questionData.question | quotationMarks }}</h3>
   <mat-button-toggle-group
     name="questionData"
-    aria-label="Favorite Color"
     [(ngModel)]="selectedAnswer"
     (change)="submitAnswer()"
     [disabled]="resultsMode"

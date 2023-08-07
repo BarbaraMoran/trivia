@@ -1,14 +1,14 @@
-<ng-container *ngIf="trivialQuestions">
+<ng-container *ngIf="triviaQuestions">
   <app-q-and-a
     (addAnswerInfo)="getSelectedAnswers($event)"
-    *ngFor="let question of trivialQuestions"
+    *ngFor="let question of triviaQuestions"
     [questionData]="question"
     [resultsMode]="resultsMode"
   ></app-q-and-a>
 
   <button
     class="submit-btn"
-    *ngIf="showButton && gameMode && !resultsMode"
+    *ngIf="showButton && !resultsMode"
     mat-raised-button
     color="primary"
     type="submit"
@@ -17,9 +17,7 @@
     Submit
   </button>
 
-  <div *ngIf="resultsMode && !gameMode && submittedAnswers" class="result-text">
+  <div *ngIf="resultsMode && submittedAnswers" class="result-text">
     <p>{{ totalScoreLiteral }}</p>
   </div>
-
-  <!--boton-->
 </ng-container>

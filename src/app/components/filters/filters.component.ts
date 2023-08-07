@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { DIFFICULTY_OPTIONS } from 'src/app/constants/constants';
 import { ITriviaCategory } from 'src/app/interfaces/trivia-api-response.interface';
-import { ApiTrivialService } from 'src/app/services/api-trivial.service';
 import { Output, EventEmitter } from '@angular/core';
 import { ISelectedFilterOptions } from 'src/app/interfaces/selected-filter-options.interface';
+import { ApiTriviaService } from 'src/app/services/api-trivia.service';
 
 @Component({
   selector: 'app-filters',
@@ -14,21 +13,31 @@ import { ISelectedFilterOptions } from 'src/app/interfaces/selected-filter-optio
 export class FiltersComponent implements OnInit, OnDestroy {
   @Output() selectedOptions = new EventEmitter<ISelectedFilterOptions>();
   categoryOptions!: ITriviaCategory[];
-  difficultyOptions!: { name: string; value: string }[];
-
   apiSubscription!: Subscription;
+  DIFFICULTY_OPTIONS: { name: string; value: string }[] = [
+    {
+      name: 'Easy',
+      value: 'easy',
+    },
+    {
+      name: 'Medium',
+      value: 'medium',
+    },
+    {
+      name: 'Hard',
+      value: 'hard',
+    },
+  ];
 
-  constructor(private apiTrivialService: ApiTrivialService) {
-    this.difficultyOptions = DIFFICULTY_OPTIONS;
-  }
+  constructor(private apiTriviaService: ApiTriviaService) {}
 
   ngOnInit(): void {
     this.getCategories();
   }
 
   getCategories(): void {
-    this.apiSubscription = this.apiTrivialService
-      .getTrivialCategoriesData()
+    this.apiSubscription = this.apiTriviaService
+      .getTriviaCategoriesData()
       .subscribe((data) => (this.categoryOptions = data));
   }
 
@@ -37,6 +46,6 @@ export class FiltersComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.apiSubscription.unsubscribe();
+    this.apiSubscription?.unsubscribe();
   }
 }

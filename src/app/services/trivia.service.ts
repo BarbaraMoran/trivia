@@ -5,7 +5,7 @@ import { IQuestion } from '../interfaces/trivia-api-response.interface';
 @Injectable({
   providedIn: 'root',
 })
-export class TrivialService {
+export class TriviaService {
   private _submittedAnswers!: ISelectedAnswer[];
   private _questions!: IQuestion[];
 
