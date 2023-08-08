@@ -37,6 +37,7 @@ export class TriviaHomeComponent implements OnDestroy {
           this.triviaService.questions = data;
         },
         error: (error) => {
+          console.log(error);
           this.apiError = true;
         },
       });
