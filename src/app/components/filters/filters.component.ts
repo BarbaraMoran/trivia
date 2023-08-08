@@ -14,6 +14,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
   @Output() selectedOptions = new EventEmitter<ISelectedFilterOptions>();
   categoryOptions!: ITriviaCategory[];
   apiSubscription!: Subscription;
+
   DIFFICULTY_OPTIONS: { name: string; value: string }[] = [
     {
       name: 'Easy',

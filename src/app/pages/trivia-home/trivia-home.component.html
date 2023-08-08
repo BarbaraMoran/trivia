@@ -1,7 +1,16 @@
 <h1>QUIZ MAKER</h1>
 <app-filters (selectedOptions)="getSelectedOptions($event)"></app-filters>
+
 <app-q-and-a-form
   [resultsMode]="false"
   [triviaQuestions]="triviaQuestions"
-  *ngIf="triviaQuestions"
+  *ngIf="triviaQuestions && !apiError && !noData"
 ></app-q-and-a-form>
+
+<div *ngIf="apiError" class="error-text">
+  <p>There has been a critical error, please try again later.</p>
+</div>
+
+<div *ngIf="noData" class="error-text">
+  <p>There aren't results for the indicated parameters.</p>
+</div>

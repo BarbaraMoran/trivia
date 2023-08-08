@@ -8,11 +8,14 @@ import { TriviaService } from 'src/app/services/trivia.service';
 @Component({
   selector: 'app-trivia-home',
   templateUrl: './trivia-home.component.html',
+  styleUrls: ['./trivia-home.component.scss'],
 })
 export class TriviaHomeComponent implements OnDestroy {
   selectedOptions!: ISelectedFilterOptions;
   apiSubscription!: Subscription;
   triviaQuestions!: IQuestion[];
+  apiError: boolean = false;
+  noData: boolean = false;
 
   constructor(
     private apiTriviaService: ApiTriviaService,
@@ -27,10 +30,16 @@ export class TriviaHomeComponent implements OnDestroy {
   getTriviaQuestionsData(): void {
     this.apiSubscription = this.apiTriviaService
       .getTriviaQuestionsData(this.selectedOptions)
-      .subscribe((data) => {
-        console.log(data);
-        this.triviaQuestions = data;
-        this.triviaService.questions = data;
+      .subscribe({
+        next: (data) => {
+          this.triviaQuestions = data;
+          this.noData = data.length ? false : true;
+          this.triviaService.questions = data;
+        },
+        error: (error) => {
+          console.log(error);
+          this.apiError = true;
+        },
       });
   }
 

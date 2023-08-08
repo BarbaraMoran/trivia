@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {
   IQuestion,
   ITriviaCategories,
@@ -19,7 +19,7 @@ export class ApiTriviaService {
   constructor(private http: HttpClient) {}
 
   getTriviaCategoriesData(): Observable<ITriviaCategory[]> {
-    const CAT_PARAM = 'api_category.php';
+    const CAT_PARAM: string = 'api_category.php';
 
     return this.http
       .get<ITriviaCategories>(`${this.URL_BASE}${CAT_PARAM}`)
@@ -34,11 +34,17 @@ export class ApiTriviaService {
   getTriviaQuestionsData(
     selectedParams: ISelectedFilterOptions
   ): Observable<IQuestion[]> {
-    const type = 'multiple';
-    const questionsParams = `api.php?amount=${QUESTIONS_AMOUNT}&category=${selectedParams.category}&difficulty=${selectedParams.difficulty}&type=${type}`;
+    const QUESTION_PARAM = 'api.php';
 
     return this.http
-      .get<ITriviaQuestions>(`${this.URL_BASE}${questionsParams}`)
+      .get<ITriviaQuestions>(`${this.URL_BASE}${QUESTION_PARAM}`, {
+        params: {
+          amount: QUESTIONS_AMOUNT,
+          category: selectedParams.category,
+          difficulty: selectedParams.difficulty,
+          type: 'multiple',
+        },
+      })
       .pipe(
         map((data) => {
           let i = 0;

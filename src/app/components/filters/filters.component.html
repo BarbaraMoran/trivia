@@ -1,4 +1,4 @@
-<div *ngIf="categoryOptions; else errorBlock">
+<div *ngIf="categoryOptions; else spinnerBlock">
   <mat-form-field class="form-element">
     <mat-select
       placeholder="Select a category"
@@ -41,5 +41,4 @@
     </button>
   </div>
 </div>
-<!--si da tiempo-->
-<ng-template #errorBlock> <mat-spinner></mat-spinner> </ng-template>
+<ng-template #spinnerBlock> <mat-spinner></mat-spinner> </ng-template>

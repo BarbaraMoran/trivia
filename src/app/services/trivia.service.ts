@@ -14,6 +14,7 @@ export class TriviaService {
   public get questions(): IQuestion[] {
     return this._questions;
   }
+
   public set questions(value: IQuestion[]) {
     this._questions = value;
   }

@@ -29,7 +29,6 @@ export class QAndAComponent implements OnInit {
       id: this.questionData.id,
       selectedAnswer: this.selectedAnswer,
       correctAnswer: this.questionData.correct_answer,
-      allAnswers: this.questionData.allAnswers,
     };
     this.addAnswerInfo.emit(selectedAnswerInfo);
   }
@@ -37,6 +36,7 @@ export class QAndAComponent implements OnInit {
   getBtnColor(answerOption: string): string | undefined {
     const GREEN: string = 'green';
     const RED: string = 'red';
+
     if (answerOption === this.questionData.correct_answer) {
       return GREEN;
     } else if (answerOption === this.submitedAnswer.selectedAnswer) {

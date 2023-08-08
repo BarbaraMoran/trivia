@@ -30,7 +30,6 @@ export class QAndAFormComponent implements OnInit {
   ngOnChanges(): void {
     this.showButton = false;
     this.selectedAnswers = [];
-    console.log('onchanges');
   }
 
   getSelectedAnswers(selectedAnswerInfo: ISelectedAnswer): void {
@@ -41,8 +40,6 @@ export class QAndAFormComponent implements OnInit {
 
     if (this.checkIfFormIsComplete()) {
       this.showButton = true;
-      console.log(this.showButton);
-      console.log(this.selectedAnswers);
     }
   }
 
@@ -51,19 +48,14 @@ export class QAndAFormComponent implements OnInit {
   }
 
   submit(): void {
-    console.log(this.selectedAnswers);
     this.triviaService.submittedAnswers = this.selectedAnswers;
     this.router.navigate(['/trivia-results']);
   }
 
-  //Results Mode
   getTotalScoreLiteral(): string {
     const correctAnswers = this.submittedAnswers.filter(
       (item) => item.selectedAnswer === item.correctAnswer
     );
-
-    console.log(correctAnswers);
-
     return `You scored ${correctAnswers.length} out of ${QUESTIONS_AMOUNT}`;
   }
 }
