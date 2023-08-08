@@ -48,8 +48,13 @@ export class QAndAFormComponent implements OnInit {
   }
 
   submit(): void {
+    this.sortSubmittedAnswers();
     this.triviaService.submittedAnswers = this.selectedAnswers;
     this.router.navigate(['/trivia-results']);
+  }
+
+  sortSubmittedAnswers(): void {
+    this.selectedAnswers.sort((a, b) => a.id - b.id);
   }
 
   getTotalScoreLiteral(): string {
